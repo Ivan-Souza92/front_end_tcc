@@ -32,6 +32,7 @@ const ComunidadeList = () => {
     }
   }
 
+
   useEffect(() => {
     loadComunidades()
   }, [])

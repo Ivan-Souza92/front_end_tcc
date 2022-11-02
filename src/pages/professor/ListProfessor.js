@@ -12,29 +12,51 @@ const ListProfessor = () => {
 
   const [professor, setProfessor] = useState([]);
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const [message, setMessage] = useState('');
   const [titulo, setTitulo] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
+
+  useEffect(() => {
+    loadProfessor()
+  }, [])
 
   const loadProfessor = async () => {
     try {
       const res = await api.get('/professor/list')
       setProfessor(res.data)
-      console.log(res.data)
     } catch (error) {
       console.log(error);
-      //alert("Não foi possível listar os professores.")
       setTitulo('Sem Conexão!');
       setMessage('Não foi possível listar os Professores!');
       handleShow();
     }
   }
 
-  useEffect(() => {
-    loadProfessor()
-  }, [])
+  const modal = () => {
+    setTitulo('Atenção!')
+    setMessage('Deseja excluir esse registro?')
+    handleShow2();
+  }
+
+  const deleteProf = async (id) => {
+    try {
+      await api.delete('/professor/delete/' + id)
+      setTitulo('Sucesso!');
+      setMessage('Registro deletado com sucesso!');
+      handleShow();
+      setProfessor(professor.filter(professor => professor.id !== id)) 
+    } catch (error) {
+      setTitulo('Erro!');
+      setMessage('Erro ao deletar o registro!');
+      handleShow();
+      console.log(error)
+    }
+  }
 
   return (
     <div className='App'>
@@ -60,12 +82,24 @@ const ListProfessor = () => {
                       <td style={{ width: 300 }}>{professores.nome}</td>
                       <td style={{ width: 300 }}>{professores.curso}</td>
                       <td>
-                        <Button variant="outline-warning btn-sm" style={{marginRight:15}}>
+                        <Button variant="outline-warning btn-sm" style={{ marginRight: 15 }}>
                           Editar
                         </Button>
-                        <Button variant="outline-danger btn-sm">
+                        <Button variant="outline-danger btn-sm" onClick={() => modal()}>
                           Deletar
                         </Button>
+                        <Modal show={show2} onHide={handleClose2} animation={false} style={{ marginTop: 150 }}>
+                          <Modal.Header closeButton>
+                            <Modal.Title>{titulo}</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>{message}</Modal.Body>
+                          <Modal.Footer>
+                            <Button variant="secondary" onClick={() => deleteProf(professores.id)}>
+                              Deletar
+                            </Button>
+                            <Button variant="primary">Cancelar</Button>
+                          </Modal.Footer>
+                        </Modal>
                       </td>
                     </tr>
                   ))}
@@ -82,9 +116,8 @@ const ListProfessor = () => {
           </Modal.Header>
           <Modal.Body>{message}</Modal.Body>
         </Modal>
-        
       </div>
-    </div>
+    </div >
 
   )
 }
