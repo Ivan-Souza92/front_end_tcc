@@ -15,11 +15,16 @@ const ListProfessor = () => {
   const [show2, setShow2] = useState(false);
   const [message, setMessage] = useState('');
   const [titulo, setTitulo] = useState('');
+  const [id, setId ] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+
+  const redireciona = (id) => {
+    window.location.href = '/professor/' + id;
+  }
 
   useEffect(() => {
     loadProfessor()
@@ -37,19 +42,22 @@ const ListProfessor = () => {
     }
   }
 
-  const modal = () => {
+  const modal = (id_prof) => {
     setTitulo('Atenção!')
     setMessage('Deseja excluir esse registro?')
     handleShow2();
+    setId(id_prof);
   }
 
-  const deleteProf = async (id) => {
+  const deleteProf = async () => {
+    handleClose2()
     try {
-      await api.delete('/professor/delete/' + id)
+      await api.delete('/professor/delete/'+ id)
       setTitulo('Sucesso!');
       setMessage('Registro deletado com sucesso!');
       handleShow();
       setProfessor(professor.filter(professor => professor.id !== id)) 
+      setId('');
     } catch (error) {
       setTitulo('Erro!');
       setMessage('Erro ao deletar o registro!');
@@ -82,10 +90,10 @@ const ListProfessor = () => {
                       <td style={{ width: 300 }}>{professores.nome}</td>
                       <td style={{ width: 300 }}>{professores.curso}</td>
                       <td>
-                        <Button variant="outline-warning btn-sm" style={{ marginRight: 15 }}>
+                        <Button variant="outline-warning btn-sm" onClick={() => redireciona(professores.id)} style={{ marginRight: 15 }}>
                           Editar
                         </Button>
-                        <Button variant="outline-danger btn-sm" onClick={() => modal()}>
+                        <Button variant="outline-danger btn-sm" onClick={() => modal(professores.id)}>
                           Deletar
                         </Button>
                         <Modal show={show2} onHide={handleClose2} animation={false} style={{ marginTop: 150 }}>
@@ -94,10 +102,10 @@ const ListProfessor = () => {
                           </Modal.Header>
                           <Modal.Body>{message}</Modal.Body>
                           <Modal.Footer>
-                            <Button variant="secondary" onClick={() => deleteProf(professores.id)}>
+                            <Button variant="secondary" onClick={() => deleteProf()}>
                               Deletar
                             </Button>
-                            <Button variant="primary">Cancelar</Button>
+                            <Button variant="primary" onClick={handleClose2}>Cancelar</Button>
                           </Modal.Footer>
                         </Modal>
                       </td>

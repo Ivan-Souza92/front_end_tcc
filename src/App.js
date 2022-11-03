@@ -19,6 +19,8 @@ import CadastrarComunidade from './pages/comunidade/CadastrarComunidade';
 import ComunidadeList from './pages/comunidade/ComunidadeList';
 import Drawer from './components/Drawer';
 import AppBar from './components/AppBar';
+import EditProfessor from './pages/professor/EditProfessor';
+import CadastroProjeto from './pages/projetos/CadastroProjeto';
 
 
 
@@ -106,8 +108,10 @@ function DashboardContent() {
             <Routes>
               <Route path="/cadastro_professor" element={<CadastroProfessor />} />
               <Route path="/lista_de_professores" element={<ListProfessor />} />
+              <Route path="/professor/:id" element={<EditProfessor/>} />
               <Route path="/comunidade/create" element={<CadastrarComunidade />} />
               <Route path="/comunidade/listing" element={<ComunidadeList />} />
+              <Route path="/projeto" element={<CadastroProjeto />} />
             </Routes>
           </Box>
         </Box>

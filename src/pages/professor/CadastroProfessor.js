@@ -1,5 +1,4 @@
 import '../../App.css';
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -52,7 +51,6 @@ const CadastroProfessor = () => {
 
         try {
             const res = await api.post('/prof_extensionista', data)
-
             if (res.status === 200) {
                 setTitulo('Sucesso!');
                 setMessage('Professor Cadastrado com Sucesso!');
