@@ -21,6 +21,8 @@ import Drawer from './components/Drawer';
 import AppBar from './components/AppBar';
 import EditProfessor from './pages/professor/EditProfessor';
 import CadastroProjeto from './pages/projetos/CadastroProjeto';
+import GrupoExtensao from './pages/grupo_extensao/GrupoExtensao';
+import ListGroup from './pages/grupo_extensao/ListGrupo';
 
 
 
@@ -109,6 +111,8 @@ function DashboardContent() {
               <Route path="/cadastro_professor" element={<CadastroProfessor />} />
               <Route path="/lista_de_professores" element={<ListProfessor />} />
               <Route path="/professor/:id" element={<EditProfessor/>} />
+              <Route path="/grupo_extensao" element={<GrupoExtensao />} />
+              <Route path="/grupo_extensao/list" element={<ListGroup />} />
               <Route path="/comunidade/create" element={<CadastrarComunidade />} />
               <Route path="/comunidade/listing" element={<ComunidadeList />} />
               <Route path="/projeto" element={<CadastroProjeto />} />
