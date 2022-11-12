@@ -20,9 +20,16 @@ import ComunidadeList from './pages/comunidade/ComunidadeList';
 import Drawer from './components/Drawer';
 import AppBar from './components/AppBar';
 import EditProfessor from './pages/professor/EditProfessor';
-import CadastroProjeto from './pages/projetos/CadastroProjeto';
 import GrupoExtensao from './pages/grupo_extensao/GrupoExtensao';
 import ListGroup from './pages/grupo_extensao/ListGrupo';
+import EditGrupo from './pages/grupo_extensao/EditGrupo';
+import Projeto from './pages/projetos/Projeto';
+import ListProjeto from './pages/projetos/ListProjeto';
+import ComunidadeEdit from './pages/comunidade/ComunidadeEdit';
+import ProjetoEdit from './pages/projetos/ProjetoEdit';
+import Aluno from './pages/aluno/Aluno';
+import AlunoList from './pages/aluno/AlunoList';
+import AlunoEdit from './pages/aluno/AlunoEdit';
 
 
 
@@ -113,9 +120,16 @@ function DashboardContent() {
               <Route path="/professor/:id" element={<EditProfessor/>} />
               <Route path="/grupo_extensao" element={<GrupoExtensao />} />
               <Route path="/grupo_extensao/list" element={<ListGroup />} />
+              <Route path="/grupo_extensao/:id" element={<EditGrupo />} />
               <Route path="/comunidade/create" element={<CadastrarComunidade />} />
               <Route path="/comunidade/listing" element={<ComunidadeList />} />
-              <Route path="/projeto" element={<CadastroProjeto />} />
+              <Route path="/comunidade/:id" element={<ComunidadeEdit />} />
+              <Route path="/projeto" element={<Projeto />} />
+              <Route path="/projeto/list" element={<ListProjeto />} />
+              <Route path="/projeto/:id" element={<ProjetoEdit />} />
+              <Route path="/aluno" element={<Aluno />} />
+              <Route path="/aluno/list" element={<AlunoList />} />
+              <Route path="/aluno/:id" element={<AlunoEdit />} />
             </Routes>
           </Box>
         </Box>

@@ -30,7 +30,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Comunidade" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton  href='/aluno'>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>

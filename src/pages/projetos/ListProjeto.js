@@ -8,64 +8,62 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Modal from 'react-bootstrap/Modal'
 
-const ComunidadeList = () => {
+const ListProjeto = () => {
 
-  const [comunidade, setComunidades] = useState([]);
+  const [projeto, setProjeto] = useState([]);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [message, setMessage] = useState('');
   const [titulo, setTitulo] = useState('');
   const [id, setId ] = useState('');
-  
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
 
-  const loadComunidades = async () => {
+  const redireciona = (id) => {
+    window.location.href = '/projeto/' + id;
+  }
+
+  useEffect(() => {
+    loadProjeto()
+  }, [])
+
+  const loadProjeto = async () => {
     try {
-      const res = await api.get('/comunidade/list')
-      setComunidades(res.data)
-      console.log(comunidade)
+      const res = await api.get('/projeto/list_all')
+      setProjeto(res.data)
     } catch (error) {
+      console.log(error);
       setTitulo('Sem Conexão!');
-      setMessage('Não foi possível listar as comunidades!');
+      setMessage('Não foi possível listar os Grupos de Extensao!');
       handleShow();
     }
   }
 
-  const modal = (idComunidade) => {
+  const modal = (idProj) => {
     setTitulo('Atenção!')
     setMessage('Deseja excluir esse registro?')
     handleShow2();
-    setId(idComunidade);
+    setId(idProj);
   }
 
-    const deleteComunidade = async () => {
+  const deleteGrupo = async () => {
     handleClose2()
     try {
-      await api.delete('/professor/delete/'+ id)
+      await api.delete('/projeto/delete/'+ id)
       setTitulo('Sucesso!');
       setMessage('Registro deletado com sucesso!');
       handleShow();
-      setComunidades(comunidade.filter(comunidade => comunidade.id !== id)) 
+      setProjeto(projeto.filter(projeto => projeto.id !== id)) 
       setId('');
     } catch (error) {
       setTitulo('Erro!');
       setMessage('Erro ao deletar o registro!');
       handleShow();
-      console.log(error)
     }
   }
-
-  const redireciona = (id) => {
-    window.location.href = '/comunidade/' + id;
-  }
-
-
-  useEffect(() => {
-    loadComunidades()
-  }, [])
 
   return (
     <div className='App'>
@@ -76,27 +74,25 @@ const ComunidadeList = () => {
           <Grid item xs={12}>
 
             <Paper sx={{ p: 10, display: 'flex', flexDirection: 'column', marginLeft: 10, marginTop: 10 }} >
-              <h2>Lista de Comunidades</h2>
-              <Table table-success table-striped style={{ marginTop: 30 }}>
+              <h2>Lista de Projetos</h2>
+              <Table striped bordered hover style={{ marginTop: 30 }}>
                 <thead>
                   <tr>
-                    <th>Nome da Comunidade</th>
-                    <th>Número de Pessoas Atendidas</th>
-                    <th>Email</th>
-                    <th>Ação</th>
+                    <th>Descrição do Projeto</th>
+                    <th >Nome do Grupo de Extensão</th>
+                    <th >Ação</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comunidade.map((comunidades, i) => (
+                  {projeto.map((projetos, i) => (
                     <tr key={i}>
-                      <td>{comunidades.nome}</td>
-                      <td>{comunidades.qtd_pessoas_atendidas}</td>
-                      <td>{comunidades.email}</td>
+                      <td style={{ width: 300 }}>{projetos.descricao}</td>
+                      <td>{projetos.grupo_extensaos.nome}</td>
                       <td>
-                        <Button variant="outline-warning btn-sm" onClick={() => redireciona(comunidades.id)} style={{ marginRight: 15 }}>
+                        <Button variant="outline-warning btn-sm" onClick={() => redireciona(projetos.id)} style={{ marginRight: 15 }}>
                           Editar
                         </Button>
-                        <Button variant="outline-danger btn-sm" onClick={() => modal(comunidades.id)}>
+                        <Button variant="outline-danger btn-sm" onClick={() => modal(projetos.id)}>
                           Deletar
                         </Button>
                         <Modal show={show2} onHide={handleClose2} animation={false} style={{ marginTop: 150 }}>
@@ -105,7 +101,7 @@ const ComunidadeList = () => {
                           </Modal.Header>
                           <Modal.Body>{message}</Modal.Body>
                           <Modal.Footer>
-                            <Button variant="secondary" onClick={() => deleteComunidade()}>
+                            <Button variant="secondary" onClick={() => deleteGrupo()}>
                               Deletar
                             </Button>
                             <Button variant="primary" onClick={handleClose2}>Cancelar</Button>
@@ -120,6 +116,7 @@ const ComunidadeList = () => {
             </Paper>
           </Grid>
         </Box>
+
         <Modal show={show} onHide={handleClose} animation={false} style={{ marginTop: 150 }}>
           <Modal.Header closeButton>
             <Modal.Title>{titulo}</Modal.Title>
@@ -127,9 +124,9 @@ const ComunidadeList = () => {
           <Modal.Body>{message}</Modal.Body>
         </Modal>
       </div>
-    </div>
+    </div >
 
   )
 }
 
-export default ComunidadeList;
+export default ListProjeto;

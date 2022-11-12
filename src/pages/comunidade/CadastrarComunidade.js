@@ -79,18 +79,17 @@ const CadastrarComunidade = () => {
 
 
     return (
-        <div style={{ marginTop: 28 }}>
-            <span><h2 className='App'>Cadastro de Comunidade</h2></span> 
-            <hr />
+        <div style={{ marginTop: 30 }}>
             <Box sx={{ display: 'flex' }} style={{ marginLeft: 160 }}>
                 <Grid item xs={12}>
                     <Paper sx={{ p: 15, display: 'flex', flexDirection: 'column' }} >
+                    <h2 style={{textAlign: 'center'}}>Cadastro de Comunidade</h2>
                         <TextField
                             id="outlined-basic"
                             label="Comunidade Nome"
                             value={nome}
                             variant="outlined"
-                            style={{ width: 600 }}
+                            style={{ width: 600, marginTop:50 }}
                             onChange={e => setNome(e.target.value)}
 
                         />

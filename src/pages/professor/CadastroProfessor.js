@@ -66,17 +66,16 @@ const CadastroProfessor = () => {
 
     return (
         <div>
-            <span><h2 className='App'>Cadastro do Professor Extensionista</h2></span>
-            <hr />
-            <Box sx={{ display: 'flex' }} style={{ marginLeft: 160 }}>
+            <Box sx={{ display: 'flex' }} style={{ marginLeft: 160, marginTop:30 }}>
                 <Grid item xs={12}>
                     <Paper sx={{ p: 15, display: 'flex', flexDirection: 'column' }} >
+                    <h2 style={{textAlign: 'center'}}>Cadastro do Professor Extensionista</h2>
                         <TextField
                             id="outlined-basic"
                             label="Nome do Professor"
                             value={nome}
                             variant="outlined"
-                            style={{ width: 600 }}
+                            style={{ width: 600, marginTop: 50 }}
                             onChange={e => setNome(e.target.value)}
 
                         />
