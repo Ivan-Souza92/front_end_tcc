@@ -46,6 +46,12 @@ const Aluno = () => {
     const loadGrupo = async () => {
         try {
             const res = await api.get('/grupo_extensao/lista')
+            if(res.data.length ==0 ){
+                setTitulo('Atenção!');
+                setMessage('Para cadastrar um aluno é necessário cadastrar um grupo de extensão primeiro!');
+                handleShow();
+                return;
+            }
             setGrupo_Extensao(res.data)
         } catch (error) {
             console.log(error);
@@ -68,7 +74,7 @@ const Aluno = () => {
 
         if (!data.nome || data.nome === '') {
             setTitulo('Erro!');
-            setMessage('O preenchimento do Nome é Obrigatório!');
+            setMessage('O preenchimento do nome é obrigatório!');
             handleShow();
             return;
         }
@@ -80,25 +86,25 @@ const Aluno = () => {
         }
         if (!data.periodo || data.periodo === '') {
             setTitulo('Erro!');
-            setMessage('é necessário informar o periodo do aluno!')
+            setMessage('É necessário informar o periodo do aluno!')
             handleShow();
             return;
         }
         if (!data.ano_entrada || data.ano_entrada === '') {
             setTitulo('Erro!');
-            setMessage('é necessário informar o ano que o aluno ingressou!')
+            setMessage('É necessário informar o ano que o aluno ingressou!')
             handleShow();
             return;
         }
         if (!data.semestre_entrada || data.semestre_entrada === '') {
             setTitulo('Erro!');
-            setMessage('é necessário informar o ano que o aluno ingressou!')
+            setMessage('É necessário informar o semestre que o aluno ingressou!')
             handleShow();
             return;
         }
         if (!grupo_id || grupo_id === '') {
             setTitulo('Erro!');
-            setMessage('é necessário selecionar um Grupo de Extensão!');
+            setMessage('É necessário selecionar um grupo de extensão!');
             handleShow();
             return;
         }
@@ -130,7 +136,7 @@ const Aluno = () => {
                         <h2 style={{ textAlign: 'center' }}>Cadastro do Aluno</h2>
                         <TextField
                             id="outlined-basic"
-                            label="Comunidade Nome"
+                            label="Nome do Aluno"
                             value={nome}
                             variant="outlined"
                             style={{ width: 600, marginTop: 50 }}

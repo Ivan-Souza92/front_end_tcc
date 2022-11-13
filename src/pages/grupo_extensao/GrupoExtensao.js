@@ -41,6 +41,12 @@ const GrupoExtensao = () => {
     const loadProfessor = async () => {
         try {
             const res = await api.get('/professor/list')
+            if(res.data.length ==0 ){
+                setTitulo('Atenção!');
+                setMessage('Para Cadastrar um Grupo de Extensão \n é necessário cadastrar um Professor primeiro!');
+                handleShow();
+                return;
+            }
             setProfessor(res.data)
         } catch (error) {
             console.log(error);
@@ -71,7 +77,7 @@ const GrupoExtensao = () => {
         }
         if (!prof_id || prof_id === '') {
             setTitulo('Erro!');
-            setMessage('é necessário selecionar um professor!');
+            setMessage('É necessário selecionar um professor!');
             handleShow();
             return;
         }
@@ -79,7 +85,6 @@ const GrupoExtensao = () => {
         try {
 
             const res = await api.post('/grupo_extensao/' + prof_id, data)
-            console.log(prof_id)
 
             if (res.status === 200) {
                 setTitulo('Sucesso!');
@@ -89,7 +94,7 @@ const GrupoExtensao = () => {
             }
         } catch (error) {
             setTitulo('Verifique a sua Conexão!');
-            setMessage('Teste');
+            setMessage('Não foi possível cadastrar o grupo de extensão!');
             handleShow();
         }
     }

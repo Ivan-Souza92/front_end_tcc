@@ -18,17 +18,17 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Home" />
     </ListItemButton>
-    <ListItemButton href='/cadastro_professor'>
+    <ListItemButton href='/professor'>
       <ListItemIcon>
         <CreateIcon />
       </ListItemIcon>
       <ListItemText primary="Cadastrar Professor" />
     </ListItemButton>
-    <ListItemButton  href='/comunidade/create'>
+    <ListItemButton  href='/grupo_extensao'>
       <ListItemIcon>
         <LibraryBooksIcon />
       </ListItemIcon>
-      <ListItemText primary="Comunidade" />
+      <ListItemText primary="Grupo de Extensão" />
     </ListItemButton>
     <ListItemButton  href='/aluno'>
       <ListItemIcon>

@@ -115,8 +115,8 @@ function DashboardContent() {
           >
             <Toolbar />
             <Routes>
-              <Route path="/cadastro_professor" element={<CadastroProfessor />} />
-              <Route path="/lista_de_professores" element={<ListProfessor />} />
+              <Route path="/professor" element={<CadastroProfessor />} />
+              <Route path="/professor/list" element={<ListProfessor />} />
               <Route path="/professor/:id" element={<EditProfessor/>} />
               <Route path="/grupo_extensao" element={<GrupoExtensao />} />
               <Route path="/grupo_extensao/list" element={<ListGroup />} />

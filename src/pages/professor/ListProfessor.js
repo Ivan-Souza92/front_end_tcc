@@ -34,6 +34,7 @@ const ListProfessor = () => {
     try {
       const res = await api.get('/professor/list')
       setProfessor(res.data)
+      console.log(res.data)
     } catch (error) {
       console.log(error);
       setTitulo('Sem Conexão!');

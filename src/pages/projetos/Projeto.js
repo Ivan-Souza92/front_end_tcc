@@ -41,9 +41,14 @@ const Projeto = () => {
     const loadGrupo = async () => {
         try {
             const res = await api.get('/grupo_extensao/lista')
+            if (res.data.length == 0) {
+                setTitulo('Atenção!');
+                setMessage('Para cadastrar um projeto é necessário cadastrar um grupo de extensão primeiro!');
+                handleShow();
+                return;
+            }
             setGrupo_Extensao(res.data)
         } catch (error) {
-            console.log(error);
             setTitulo('Sem Conexão!');
             setMessage('Não foi possível listar os Grupos de Extensão!');
             handleShow();
@@ -65,16 +70,13 @@ const Projeto = () => {
         }
         if (!grupo_id || grupo_id === '') {
             setTitulo('Erro!');
-            setMessage('é necessário selecionar um Grupo de Extensão!');
+            setMessage('É necessário selecionar um Grupo de Extensão!');
             handleShow();
             return;
         }
 
         try {
-
             const res = await api.post('/projeto/' + grupo_id, data)
-            console.log(grupo_id)
-
             if (res.status === 200) {
                 setTitulo('Sucesso!');
                 setMessage('Projeto Cadastrado com Sucesso!');
@@ -89,13 +91,13 @@ const Projeto = () => {
     }
 
     return (
-        <div style={{marginTop:15}}>
+        <div style={{ marginTop: 15 }}>
 
             <Box sx={{ display: 'flex' }} style={{ marginLeft: 160 }}>
                 <Grid item xs={12}>
                     <Paper sx={{ p: 15, display: 'flex', flexDirection: 'column' }} >
-                    <h2 style={{textAlign: 'center'}}>Cadastro de Projeto</h2>
-                    
+                        <h2 style={{ textAlign: 'center' }}>Cadastro de Projeto</h2>
+
                         <TextField id="outlined-basic"
                             label="Descrição do Projeto"
                             variant="outlined"
@@ -105,9 +107,9 @@ const Projeto = () => {
                             onChange={e => setDescricao(e.target.value)}
                         />
 
-                        <Form.Group className="mb-3" controlId="listLocalidades" style={{marginTop:40}}>
+                        <Form.Group className="mb-3" controlId="listLocalidades" style={{ marginTop: 40 }}>
 
-                            <Form.Select aria-label="Default select example" value={grupo_id} onChange={e => setGrupoId(e.target.value)} style={{height:56}} >
+                            <Form.Select aria-label="Default select example" value={grupo_id} onChange={e => setGrupoId(e.target.value)} style={{ height: 56 }} >
                                 <option>Selecione o Grupo de Extensão</option>
                                 {grupo_extensao.map((grupos, i) => (
                                     <option value={grupos.id} key={i}>{grupos.nome}</option>
